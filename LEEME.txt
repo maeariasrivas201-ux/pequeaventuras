@@ -1,0 +1,14 @@
+PEQUEAVENTURAS — PROTOTIPO PWA
+
+Contenido:
+- index.html: aplicación educativa inicial.
+- manifest.webmanifest: datos de instalación.
+- service-worker.js: caché básica para abrirla sin conexión después de la primera carga.
+- icon.svg: icono.
+
+IMPORTANTE:
+1. Para que se pueda instalar como PWA, publica estos archivos en un alojamiento HTTPS.
+2. Este paquete todavía NO tiene un panel administrativo privado ni autenticación de usuarios.
+3. No publiques información sensible de niños en esta versión. El progreso se guarda localmente en el dispositivo.
+4. Para que tú seas la única administradora de verdad, el siguiente desarrollo debe incluir un servidor/backend con inicio de sesión seguro, roles y permisos comprobados en el servidor.
+5. Google Play y App Store requieren pasos adicionales, cuentas de desarrollador y cumplir sus políticas; pueden tener tarifas.

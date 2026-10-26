@@ -1,0 +1,18 @@
+{
+  "name": "PequeAventuras — Aprende jugando",
+  "short_name": "PequeAventuras",
+  "description": "Juegos educativos infantiles para aprender vocales, letras y números.",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#f7f5ff",
+  "theme_color": "#7c3aed",
+  "icons": [
+    {
+      "src": "icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

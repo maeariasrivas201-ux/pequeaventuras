@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#7c3aed">
+<meta name="description" content="PequeAventuras: aprende vocales, números y letras jugando.">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icon.svg" type="image/svg+xml">
+<title>PequeAventuras — Aprende jugando</title>
+<style>
+:root{--purple:#7c3aed;--ink:#24213b;--muted:#68647d;--bg:#f7f5ff;--pink:#ffdeef;--blue:#dff2ff;--yellow:#fff1b8;--green:#d9fbe8}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font-family:ui-rounded,"Trebuchet MS",system-ui,sans-serif}
+button{font:inherit;cursor:pointer;border:0;touch-action:manipulation}
+header{background:linear-gradient(120deg,#7c3aed,#a855f7);color:white;padding:18px max(18px,calc((100% - 1050px)/2));display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.brand{font-weight:1000;font-size:1.35rem;letter-spacing:.2px}.tagline{font-size:.85rem;opacity:.9}.stars{background:#fff;color:#7136cf;border-radius:999px;padding:9px 14px;font-weight:900}
+main{max-width:1050px;margin:auto;padding:22px 16px 50px}
+.hero{background:white;border-radius:26px;padding:24px;display:flex;align-items:center;justify-content:space-between;gap:20px;box-shadow:0 8px 28px #4b2c8310}
+.hero h1{font-size:clamp(1.7rem,4vw,2.6rem);margin:0 0 8px;line-height:1.1}.hero p{margin:0;color:var(--muted);font-size:1.02rem}.mascot{font-size:clamp(4rem,10vw,6.5rem);background:var(--yellow);border-radius:28px;min-width:110px;min-height:110px;display:grid;place-items:center}
+.section-title{margin:26px 0 12px;font-size:1.35rem}.tracks{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px}
+.track{padding:18px;border-radius:22px;text-align:left;min-height:170px;display:flex;flex-direction:column;align-items:flex-start;gap:8px;transition:transform .15s;box-shadow:0 5px 15px #30204b0b;color:var(--ink)}
+.track:hover{transform:translateY(-3px)}.track .emoji{font-size:2.6rem}.track strong{font-size:1.18rem}.track small{font-size:.9rem;color:#4e4a60;line-height:1.35}.track.vowels{background:var(--pink)}.track.numbers{background:var(--blue)}.track.abc{background:var(--green)}
+.progress-wrap{margin-top:22px;background:white;border-radius:20px;padding:18px}.progress-top{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;font-weight:800}.bar{height:12px;background:#ece8f7;border-radius:999px;margin-top:12px;overflow:hidden}.bar span{display:block;height:100%;width:0;background:linear-gradient(90deg,#7c3aed,#e879f9);border-radius:999px;transition:width .3s}
+.note{font-size:.88rem;color:var(--muted);margin-top:15px}
+.game{display:none;margin-top:22px;background:white;border-radius:26px;padding:clamp(18px,4vw,30px);box-shadow:0 8px 28px #4b2c8310}.game.active{display:block}.game-head{display:flex;align-items:center;justify-content:space-between;gap:12px}.back{background:#f0ebfb;color:#6533bd;padding:10px 14px;border-radius:14px;font-weight:800}.lesson-title{font-weight:900;font-size:1.2rem}.question{font-size:1.15rem;text-align:center;margin:22px 0 14px;color:var(--muted)}.prompt{font-size:clamp(4rem,14vw,7rem);font-weight:1000;text-align:center;line-height:1.1;margin:10px}.picture{text-align:center;font-size:clamp(3.3rem,10vw,5rem);margin:8px}.answers{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;max-width:560px;margin:18px auto}.answer{background:#f4f0ff;border:3px solid transparent;border-radius:18px;padding:18px 10px;font-size:clamp(1.3rem,4vw,2rem);font-weight:900;min-height:76px;color:var(--ink)}.answer:hover{border-color:#b59af7}.answer.correct{background:#d9fbe8;border-color:#22a05a}.answer.wrong{background:#ffe0e0;border-color:#e45858}.feedback{text-align:center;font-size:1.15rem;font-weight:900;min-height:30px}.game-actions{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin-top:12px}.primary{background:var(--purple);color:white;border-radius:16px;padding:13px 20px;font-weight:900}.secondary{background:#f0ebfb;color:#6533bd;border-radius:16px;padding:13px 20px;font-weight:900}.primary:disabled{opacity:.45;cursor:not-allowed}.footer{text-align:center;color:var(--muted);font-size:.85rem;margin-top:28px}
+@media(max-width:650px){.tracks{grid-template-columns:1fr}.track{min-height:0;display:grid;grid-template-columns:55px 1fr;column-gap:12px;align-items:center}.track .emoji{grid-row:span 2}.hero{padding:18px}.mascot{min-width:80px;min-height:80px;border-radius:22px}.answers{gap:9px}.answer{padding:13px 8px;min-height:68px}}
+</style>
+</head>
+<body>
+<header><div><div class="brand">🌈 PequeAventuras</div><div class="tagline">Pequeños pasos, grandes descubrimientos</div></div><div class="stars">⭐ <span id="starCount">0</span> estrellas</div></header>
+<main>
+<section class="hero">
+<div><h1>¡Hola, explorador! 👋</h1><p>Aprende letras y números mientras juegas.<br>¡Cada respuesta es una nueva aventura!</p></div>
+<div class="mascot" aria-label="Osito de la aplicación">🐻</div>
+</section>
+<h2 class="section-title">¿Qué quieres aprender hoy?</h2>
+<section class="tracks">
+<button class="track vowels" onclick="startGame('vowels')"><span class="emoji">🎨</span><strong>Las vocales</strong><small>A, E, I, O, U y palabras divertidas.</small></button>
+<button class="track numbers" onclick="startGame('numbers')"><span class="emoji">🔢</span><strong>Los números</strong><small>Cuenta, observa y elige el número correcto.</small></button>
+<button class="track abc" onclick="startGame('abc')"><span class="emoji">🦋</span><strong>El abecedario</strong><small>Descubre letras y palabras del mundo.</small></button>
+</section>
+<section class="progress-wrap">
+<div class="progress-top"><span>🏆 Tu aventura de hoy</span><span><span id="doneCount">0</span> respuestas correctas</span></div>
+<div class="bar"><span id="progressBar"></span></div>
+<div class="note">Prueba inicial para niños de 2 a 7 años. Un adulto puede acompañar a los más pequeños.</div>
+</section>
+<section class="game" id="game">
+<div class="game-head"><button class="back" onclick="closeGame()">← Inicio</button><div class="lesson-title" id="lessonTitle">Lección</div><div>⭐ <span id="gameStars">0</span></div></div>
+<div class="question" id="question">Elige la respuesta correcta</div>
+<div class="picture" id="picture"></div><div class="prompt" id="prompt"></div>
+<div class="answers" id="answers"></div>
+<div class="feedback" id="feedback" aria-live="polite"></div>
+<div class="game-actions"><button class="secondary" onclick="speakCurrent()">🔊 Escuchar</button><button class="primary" id="nextBtn" onclick="nextQuestion()" disabled>Siguiente →</button></div>
+</section>
+<div class="footer">PequeAventuras · Aprende jugando 💜<br>Versión inicial instalable. El progreso se guarda en este dispositivo.<br><span id="installArea"></span></div>
+</main>
+<script>
+const sets={
+ vowels:{title:"🎨 Las vocales",items:[
+ {q:"¿Cuál es la vocal A?",pic:"🐝",prompt:"A",opts:["A","E","O","U"],a:"A",say:"A de abeja"},
+ {q:"La estrella empieza con…",pic:"⭐",prompt:"",opts:["I","E","A","O"],a:"E",say:"E de estrella"},
+ {q:"¿Qué vocal ves aquí?",pic:"🏝️",prompt:"I",opts:["U","I","A","E"],a:"I",say:"I de isla"},
+ {q:"O de…",pic:"🐻",prompt:"O",opts:["A","O","U","I"],a:"O",say:"O de oso"},
+ {q:"¿Cuál es la última vocal?",pic:"🍇",prompt:"U",opts:["E","A","U","O"],a:"U",say:"U de uvas"}]},
+ numbers:{title:"🔢 Los números",items:[
+ {q:"Cuenta las manzanas",pic:"🍎 🍎",prompt:"¿Cuántas hay?",opts:["1","2","3","4"],a:"2",say:"Hay dos manzanas"},
+ {q:"Cuenta las estrellas",pic:"⭐ ⭐ ⭐",prompt:"¿Cuántas hay?",opts:["2","4","3","1"],a:"3",say:"Hay tres estrellas"},
+ {q:"¿Qué número es este?",pic:"🐥",prompt:"1",opts:["3","1","2","4"],a:"1",say:"Este es el número uno"},
+ {q:"Cuenta los corazones",pic:"❤️ ❤️ ❤️ ❤️",prompt:"¿Cuántos hay?",opts:["3","5","2","4"],a:"4",say:"Hay cuatro corazones"},
+ {q:"¿Qué número viene después del 4?",pic:"🎈",prompt:"1, 2, 3, 4, …",opts:["6","3","5","2"],a:"5",say:"Después del cuatro viene el cinco"}]},
+ abc:{title:"🦋 El abecedario",items:[
+ {q:"A de…",pic:"🐝",prompt:"A",opts:["Abeja","Casa","Sol","Luna"],a:"Abeja",say:"A de abeja"},
+ {q:"¿Con qué letra empieza barco?",pic:"⛵",prompt:"BARCO",opts:["M","B","S","L"],a:"B",say:"Barco empieza con B"},
+ {q:"C de…",pic:"🏠",prompt:"C",opts:["Gato","Casa","Pato","Flor"],a:"Casa",say:"C de casa"},
+ {q:"¿Qué letra ves?",pic:"🦁",prompt:"D",opts:["B","A","D","E"],a:"D",say:"Esta es la letra D"},
+ {q:"¿Con qué letra empieza mamá?",pic:"👩",prompt:"MAMÁ",opts:["P","M","T","S"],a:"M",say:"Mamá empieza con M"}]}
+};
+let currentSet=null,index=0,correctInSet=0,totalCorrect=Number(localStorage.getItem("pa_correct")||0),stars=Number(localStorage.getItem("pa_stars")||0),answered=false;
+document.getElementById("starCount").textContent=stars;document.getElementById("gameStars").textContent=stars;updateProgress();
+function startGame(which){currentSet=sets[which];index=0;correctInSet=0;document.getElementById("game").classList.add("active");document.getElementById("lessonTitle").textContent=currentSet.title;document.getElementById("game").scrollIntoView({behavior:"smooth",block:"start"});renderQuestion()}
+function closeGame(){document.getElementById("game").classList.remove("active");window.scrollTo({top:0,behavior:"smooth"})}
+function renderQuestion(){answered=false;let item=currentSet.items[index];document.getElementById("question").textContent=item.q;document.getElementById("picture").textContent=item.pic;document.getElementById("prompt").textContent=item.prompt;document.getElementById("feedback").textContent="";document.getElementById("nextBtn").disabled=true;document.getElementById("nextBtn").textContent=index===currentSet.items.length-1?"Terminar 🎉":"Siguiente →";let a=document.getElementById("answers");a.innerHTML="";let options=[...item.opts];options.sort(()=>Math.random()-.5);options.forEach(opt=>{let b=document.createElement("button");b.className="answer";b.textContent=opt;b.onclick=()=>chooseAnswer(b,opt,item);a.appendChild(b)})}
+function chooseAnswer(btn,opt,item){if(answered)return;answered=true;let all=[...document.querySelectorAll(".answer")];all.forEach(b=>{b.disabled=true;if(b.textContent===item.a)b.classList.add("correct")});if(opt===item.a){correctInSet++;totalCorrect++;stars++;document.getElementById("feedback").textContent="¡Muy bien! 🎉 ¡Lo lograste!";document.getElementById("feedback").style.color="#16834a";}else{btn.classList.add("wrong");document.getElementById("feedback").textContent="¡Buen intento! La respuesta es "+item.a+" 💪";document.getElementById("feedback").style.color="#b04444"}localStorage.setItem("pa_correct",totalCorrect);localStorage.setItem("pa_stars",stars);document.getElementById("starCount").textContent=stars;document.getElementById("gameStars").textContent=stars;document.getElementById("doneCount").textContent=totalCorrect;updateProgress();document.getElementById("nextBtn").disabled=false}
+function nextQuestion(){if(!answered)return;if(index<currentSet.items.length-1){index++;renderQuestion()}else{document.getElementById("question").textContent="¡Lección completada!";document.getElementById("picture").textContent="🏆";document.getElementById("prompt").textContent="¡Bravo!";document.getElementById("answers").innerHTML="";document.getElementById("feedback").textContent="Conseguiste "+correctInSet+" de "+currentSet.items.length+" respuestas correctas.";document.getElementById("nextBtn").textContent="Volver a jugar";document.getElementById("nextBtn").disabled=false;document.getElementById("nextBtn").onclick=()=>{document.getElementById("nextBtn").onclick=nextQuestion;startGame(Object.keys(sets).find(k=>sets[k]===currentSet))};answered=false}}
+function updateProgress(){document.getElementById("doneCount").textContent=totalCorrect;document.getElementById("progressBar").style.width=(totalCorrect%11)/10*100+"%"}
+function speakCurrent(){let text;if(!currentSet)return;text=currentSet.items[index].say||currentSet.items[index].q;if("speechSynthesis"in window){speechSynthesis.cancel();let u=new SpeechSynthesisUtterance(text);u.lang="es-DO";u.rate=.82;speechSynthesis.speak(u)}else alert("La lectura en voz alta no está disponible en este navegador.")}
+</script>
+<script>
+let installPromptEvent = null;
+window.addEventListener("beforeinstallprompt", (event) => {
+  event.preventDefault();
+  installPromptEvent = event;
+  const area = document.getElementById("installArea");
+  if (area) {
+    const btn = document.createElement("button");
+    btn.className = "secondary";
+    btn.textContent = "📲 Instalar PequeAventuras";
+    btn.onclick = async () => {
+      if (!installPromptEvent) return;
+      installPromptEvent.prompt();
+      await installPromptEvent.userChoice;
+      installPromptEvent = null;
+      btn.remove();
+    };
+    area.appendChild(btn);
+  }
+});
+if ("serviceWorker" in navigator && (location.protocol === "https:" || location.hostname === "localhost")) {
+  window.addEventListener("load", () => navigator.serviceWorker.register("./service-worker.js").catch(()=>{}));
+}
+</script>
+</body></html>
